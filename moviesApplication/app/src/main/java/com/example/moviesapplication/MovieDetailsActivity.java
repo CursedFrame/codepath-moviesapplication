@@ -12,7 +12,6 @@ import com.example.moviesapplication.models.Movie;
 import org.parceler.Parcels;
 
 public class MovieDetailsActivity extends AppCompatActivity {
-
     // Movie referenced
     Movie movie;
 

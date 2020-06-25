@@ -22,6 +22,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     Context context;
@@ -87,9 +89,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         }
 
         public void bind(Movie movie) {
+
+            // Initialize function variables
+            int radiusRoundedCorners = 30;
+            int marginRoundedCorners = 10;
+            String imageUrl;
+
+            // Get title and overview from "movie" object
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
-            String imageUrl;
+
+            // Modify text color for title and overview from "movie" object
+            /*tvTitle.setTextColor(Color.parseColor("#C0C0C0"));
+            tvOverview.setTextColor(Color.parseColor("#C0C0C0"));*/
 
             // If phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -101,7 +113,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 imageUrl = movie.getPosterPath();
             }
 
-            Glide.with(context).load(imageUrl).into(ivPoster);
+            // Glide image loading and rounded corners transformation
+            Glide.with(context)
+                    .load(imageUrl)
+                    .transform(new RoundedCornersTransformation(radiusRoundedCorners, marginRoundedCorners))
+                    .into(ivPoster);
         }
     }
 }

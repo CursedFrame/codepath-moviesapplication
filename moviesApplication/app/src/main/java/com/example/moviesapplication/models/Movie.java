@@ -17,9 +17,8 @@ public class Movie {
     String title;
     String overview;
     Double voteAverage;
+    Integer id;
 
-
-    //Do I really need this??
     public Movie() {
 
     }
@@ -30,6 +29,7 @@ public class Movie {
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
+        id = jsonObject.getInt("id");
     }
 
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
@@ -59,4 +59,9 @@ public class Movie {
     public String getOverview() {
         return overview;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
 }

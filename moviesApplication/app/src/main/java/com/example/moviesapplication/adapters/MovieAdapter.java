@@ -62,7 +62,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return movies.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvTitle;
@@ -95,6 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             int radiusRoundedCorners = 30;
             int marginRoundedCorners = 10;
             String imageUrl;
+            int placeholderImageId;
 
             // Get title and overview from "movie" object
             tvTitle.setText(movie.getTitle());
@@ -108,15 +108,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 // Then imageUrl = back drop image
                 imageUrl = movie.getBackdropPath();
+                placeholderImageId = R.drawable.flicks_backdrop_placeholder;
             }
             else {
                 // Else imageUrl = poster image
                 imageUrl = movie.getPosterPath();
+                placeholderImageId = R.drawable.flicks_movie_placeholder;
             }
 
             // Glide image loading and rounded corners transformation
             Glide.with(context)
                     .load(imageUrl)
+                    .placeholder(placeholderImageId)
+                    .error(placeholderImageId)
                     .transform(new RoundedCornersTransformation(radiusRoundedCorners, marginRoundedCorners))
                     .into(ivPoster);
         }

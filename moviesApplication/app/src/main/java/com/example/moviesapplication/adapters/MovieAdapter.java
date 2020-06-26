@@ -3,6 +3,7 @@ package com.example.moviesapplication.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,8 +101,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvOverview.setText(movie.getOverview());
 
             // Modify text color for title and overview from "movie" object
-            /*tvTitle.setTextColor(Color.parseColor("#C0C0C0"));
-            tvOverview.setTextColor(Color.parseColor("#C0C0C0"));*/
+            tvTitle.setTextColor(Color.parseColor("#DAA520"));
+            tvOverview.setTextColor(Color.parseColor("#FFFFFF"));
 
             // If phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

@@ -2,14 +2,15 @@ package com.example.moviesapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.moviesapplication.adapters.MovieAdapter;
+import com.example.moviesapplication.databinding.ActivityMainBinding;
 import com.example.moviesapplication.models.Movie;
 
 import org.json.JSONArray;
@@ -25,24 +26,30 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a93077f0fb63e35d67ee2dfd45678b17";
     public static final String TAG = "MainActivity";
-
     List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+
+        //activity_main.xml -> ActivityMainBinding
+        ActivityMainBinding mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        //Layout of activity is stored in a special property called root
+        View view = mainBinding.getRoot();
+        setContentView(view);
+
+        // Create new Movie ArrayList<>
         movies = new ArrayList<>();
 
         // Create the adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
         // Set the adapter on the recycler view
-        rvMovies.setAdapter(movieAdapter);
+        mainBinding.rvMovies.setAdapter(movieAdapter);
 
         // Set a Layout Manager on the recycler view
-        rvMovies.setLayoutManager(new LinearLayoutManager( this));
+        mainBinding.rvMovies.setLayoutManager(new LinearLayoutManager( this));
 
         // Movie data retrieval from MovieDB
         AsyncHttpClient client = new AsyncHttpClient();

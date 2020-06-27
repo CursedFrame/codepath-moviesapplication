@@ -3,6 +3,7 @@ package com.example.moviesapplication;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -95,16 +96,8 @@ public class MovieDetailsActivity extends AppCompatActivity{
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
+                Toast.makeText(getApplicationContext(), "Error occurred loading video", Toast.LENGTH_LONG);
             }
         });
     }
-    /*@Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.ivYoutube){
-            Intent intent = new Intent(getBaseContext(), MovieTrailerActivity.class);
-            intent.putExtra("VIDEO_KEY", videoKey);
-            startActivity(intent);
-        }
-    }*/
 }

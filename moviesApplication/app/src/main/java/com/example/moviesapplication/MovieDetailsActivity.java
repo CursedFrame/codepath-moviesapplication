@@ -57,6 +57,9 @@ public class MovieDetailsActivity extends AppCompatActivity{
         float voteAverage = movie.getVoteAverage().floatValue();
         movieDetailsBinding.rbVoteAverage.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
         movieDetailsBinding.tvReleaseDate.setText("Release Date: " + movie.getReleaseDate());
+        movieDetailsBinding.tvPopularity.setText(movie.getPopularity() + "%");
+        double moviePopularity = movie.getPopularity();
+        movieDetailsBinding.pbPopularity.setProgress((int) ((moviePopularity - Math.floor(moviePopularity) > 0.5) ? Math.ceil(moviePopularity) : Math.floor(moviePopularity)));
 
         getMovieGenres();
         createGenreString();

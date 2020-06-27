@@ -9,6 +9,20 @@
     tools:context=".MovieDetailsActivity">
 
     <TextView
+        android:id="@+id/tvPopularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvOverview"
+        android:layout_below="@+id/youtubeFragment"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_toEndOf="@+id/pbPopularity"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        tools:text="78.35%" />
+
+    <TextView
         android:id="@+id/tvGenre"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
@@ -59,8 +73,10 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:background="#333333"
+        android:layout_marginBottom="5dp"
         android:numStars="5"
+        android:progressBackgroundTint="#B5FFFF"
+        android:progressTint="#00FFFF"
         android:stepSize="0.5" />
 
     <TextView
@@ -87,5 +103,32 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="0dp"></fragment>
+
+    <ProgressBar
+        android:id="@+id/pbPopularity"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvOverview"
+        android:layout_below="@+id/youtubeFragment"
+        android:layout_alignTop="@id/rbVoteAverage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toEndOf="@id/tvSetText"
+        android:progressBackgroundTint="#00FFFF"
+        android:progressTint="#00FFFF" />
+
+    <TextView
+        android:id="@+id/tvSetText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/youtubeFragment"
+        android:layout_alignTop="@id/rbVoteAverage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-2dp"
+        android:layout_toEndOf="@+id/rbVoteAverage"
+        android:text="Popularity: "
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

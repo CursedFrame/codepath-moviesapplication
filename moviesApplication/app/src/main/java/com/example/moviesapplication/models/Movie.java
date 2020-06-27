@@ -20,6 +20,7 @@ public class Movie {
     String overview;
     String releaseDate;
     Double voteAverage;
+    Double popularity;
     Integer id;
     Integer[] genreIds;
     public List<String> listGenres = new ArrayList<>();
@@ -36,6 +37,7 @@ public class Movie {
         releaseDate = jsonObject.getString("release_date");
         voteAverage = jsonObject.getDouble("vote_average");
         id = jsonObject.getInt("id");
+        popularity = jsonObject.getDouble("popularity");
 
         JSONArray genreArray = jsonObject.getJSONArray("genre_ids");
         genreIds = new Integer[genreArray.length()];
@@ -89,5 +91,9 @@ public class Movie {
 
     public List<String> getGenres(){
         return listGenres;
+    }
+
+    public Double getPopularity() {
+        return popularity;
     }
 }

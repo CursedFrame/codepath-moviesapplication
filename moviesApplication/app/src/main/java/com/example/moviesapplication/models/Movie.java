@@ -22,7 +22,7 @@ public class Movie {
     Double voteAverage;
     Integer id;
     Integer[] genreIds;
-    public List<String> genres;
+    public List<String> listGenres = new ArrayList<>();
 
     public Movie() {
 
@@ -42,6 +42,7 @@ public class Movie {
         for (int i = 0 ; i < genreArray.length() ; i++) {
             genreIds[i] = genreArray.getInt(i);
         }
+
         // Sort genreIds
         Arrays.sort(genreIds);
     }
@@ -87,6 +88,6 @@ public class Movie {
     }
 
     public List<String> getGenres(){
-        return genres;
+        return listGenres;
     }
 }

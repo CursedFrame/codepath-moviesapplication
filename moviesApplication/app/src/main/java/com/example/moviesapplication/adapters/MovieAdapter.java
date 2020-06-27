@@ -30,12 +30,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     Context context;
     List<Movie> movies;
-   /* List<Genre> genres;*/
+    List<Genre> genres;
 
     public MovieAdapter(Context context, List<Movie> movies, List<Genre> genres) {
         this.context = context;
         this.movies = movies;
-        /*this.genres = genres;*/
+        this.genres = genres;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -86,7 +86,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 Movie movie = movies.get(position);
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
-                /*intent.putExtra(Genre.class.getSimpleName(), Parcels.wrap(genres));*/
+                intent.putExtra(Genre.class.getSimpleName(), Parcels.wrap(genres));
                 context.startActivity(intent);
             }
 

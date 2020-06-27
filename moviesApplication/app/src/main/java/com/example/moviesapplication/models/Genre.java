@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Parcel
-public class Genre {
+public class Genre implements Comparable<Genre>{
     Integer Id;
     String nameGenre;
 
@@ -36,5 +36,10 @@ public class Genre {
 
     public String getNameGenre() {
         return nameGenre;
+    }
+
+    @Override
+    public int compareTo(Genre o) {
+        return this.getId().compareTo(o.getId());
     }
 }

@@ -32,6 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity{
 
     // Movie referenced and key initialized
     String movieVideoKey;
+    StringBuilder stringGenre = new StringBuilder();
     Movie movie;
     List<Genre> genres;
 
@@ -47,8 +48,8 @@ public class MovieDetailsActivity extends AppCompatActivity{
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
-        /*//Unwrapping genres list passed through intent
-        genres = Parcels.unwrap(getIntent().getParcelableExtra(Genre.class.getSimpleName()));*/
+        //Unwrapping genres list passed through intent
+        genres = Parcels.unwrap(getIntent().getParcelableExtra(Genre.class.getSimpleName()));
 
         //Set movie details
         movieDetailsBinding.tvTitle.setText(movie.getTitle());
@@ -56,7 +57,11 @@ public class MovieDetailsActivity extends AppCompatActivity{
         float voteAverage = movie.getVoteAverage().floatValue();
         movieDetailsBinding.rbVoteAverage.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
         movieDetailsBinding.tvReleaseDate.setText("Release Date: " + movie.getReleaseDate());
-        /*movieDetailsBinding.*/
+
+        getMovieGenres();
+        createGenreString();
+        movieDetailsBinding.tvGenre.setText(stringGenre);
+
 
         //API request to get YouTube video from MovieDB
         AsyncHttpClient client = new AsyncHttpClient();
@@ -93,6 +98,7 @@ public class MovieDetailsActivity extends AppCompatActivity{
 
     }
 
+    // Create
     public void createYoutubeVideo(){
         YouTubePlayerFragment youtubeFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtubeFragment);
         youtubeFragment.initialize(getString(R.string.youtube_api_key), new YouTubePlayer.OnInitializedListener() {
@@ -108,5 +114,29 @@ public class MovieDetailsActivity extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(), "Error occurred loading video", Toast.LENGTH_LONG);
             }
         });
+    }
+
+    public void createGenreString(){
+
+        if(movie.getGenres().size() == 0){
+            Log.e("MovieDetailsActivity", "createGenreString: Genre list empty");
+            return;
+        }
+
+        else {
+            stringGenre.append("Genres: " + movie.getGenres().get(0));
+            for (int i = 1 ; i < movie.getGenres().size() ; i++){
+                stringGenre.append(", " + movie.getGenres().get(i));
+            }
+        }
+    }
+    public void getMovieGenres(){
+        Integer[] movieGenres = movie.getGenreIds();
+        for (int i = 0 ; i < movieGenres.length ; i++){
+            for (int j = 0 ; j < genres.size() ; j++)
+                if ((movieGenres[i].equals(genres.get(j).getId())) && (movie.getGenreIds().length != movie.listGenres.size())) {
+                    movie.listGenres.add(genres.get(j).getNameGenre());
+                }
+        }
     }
 }

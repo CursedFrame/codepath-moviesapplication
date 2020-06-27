@@ -8,14 +8,24 @@
     tools:context=".MovieDetailsActivity">
 
     <TextView
+        android:id="@+id/tvGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tvReleaseDate"
+        android:layout_alignStart="@id/tvReleaseDate"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:textColor="#FFFFFF"
+        tools:text="Horror, Action" />
+
+    <TextView
         android:id="@+id/tvReleaseDate"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_below="@+id/tvOverview"
-        android:layout_alignStart="@id/tvOverview"
-        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="194dp"
         android:textColor="#FFFFFF"
         tools:text="2020-06-26" />
 

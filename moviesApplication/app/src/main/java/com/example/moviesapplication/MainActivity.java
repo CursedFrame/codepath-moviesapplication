@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    //-----------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------
         super.onCreate(savedInstanceState);
 
         //activity_main.xml -> ActivityMainBinding
@@ -55,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mainBinding.rvMovies.setAdapter(movieAdapter);
 
         // Set a Layout Manager on the recycler view
-        mainBinding.rvMovies.setLayoutManager(new LinearLayoutManager( this));
-    //-----------------------------------------------------------------------------------------------
+        mainBinding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        //-----------------------------------------------------------------------------------------------
         // Movie data retrieval from MovieDB
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(MOVIEDB_URL_BEGIN + "/movie/now_playing?api_key=" + getString(R.string.moviedb_api_key), new JsonHttpResponseHandler() {
@@ -98,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray results = jsonObject.getJSONArray("genres");
                     Log.i(TAG, "Genres: " + results.toString());
                     genres.addAll(Genre.fromJsonArray(results));
+                    movieAdapter.notifyDataSetChanged();
+                    // Sort the genres list
+                    Collections.sort(genres);
                 }
                 // Provides info on thrown exception
                 catch (JSONException e) {
@@ -110,28 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure");
             }
         });
-
-        // Sort the genres list
-        Collections.sort(genres, new Comparator<Genre>() {
-            @Override
-            public int compare(Genre o1, Genre o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        });
-
-        // Gets genre ids from movies, compares them to list of genres, and adds genre Strings to movies
-        for (int i = 0 ; i < movies.size() ; i++){
-
-            Integer[] movieGenreIds = movies.get(i).getGenreIds();
-
-            for(int j = 0; j < genres.size() ; j++) {
-
-                // Checks to see if genre ids match and passes genre Strings into List<String> genres inside Movie.java
-                if (movieGenreIds[i] == genres.get(j).getId() && movies.get(i).getGenres().size() != movieGenreIds.length){
-                    movies.get(i).getGenres().add(genres.get(j).getNameGenre());
-                }
-            }
-        }
 
     }
 }

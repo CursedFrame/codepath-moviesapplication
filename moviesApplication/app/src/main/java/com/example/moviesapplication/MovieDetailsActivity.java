@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.moviesapplication.databinding.ActivityMovieDetailsBinding;
+import com.example.moviesapplication.models.Genre;
 import com.example.moviesapplication.models.Movie;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -19,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
+
+import java.util.List;
 
 import okhttp3.Headers;
 
@@ -30,6 +33,7 @@ public class MovieDetailsActivity extends AppCompatActivity{
     // Movie referenced and key initialized
     String movieVideoKey;
     Movie movie;
+    List<Genre> genres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +47,16 @@ public class MovieDetailsActivity extends AppCompatActivity{
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
+        /*//Unwrapping genres list passed through intent
+        genres = Parcels.unwrap(getIntent().getParcelableExtra(Genre.class.getSimpleName()));*/
+
         //Set movie details
         movieDetailsBinding.tvTitle.setText(movie.getTitle());
         movieDetailsBinding.tvOverview.setText(movie.getOverview());
         float voteAverage = movie.getVoteAverage().floatValue();
         movieDetailsBinding.rbVoteAverage.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
+        movieDetailsBinding.tvReleaseDate.setText("Release Date: " + movie.getReleaseDate());
+        /*movieDetailsBinding.*/
 
         //API request to get YouTube video from MovieDB
         AsyncHttpClient client = new AsyncHttpClient();

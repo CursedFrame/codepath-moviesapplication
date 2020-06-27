@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.moviesapplication.MovieDetailsActivity;
 import com.example.moviesapplication.R;
+import com.example.moviesapplication.models.Genre;
 import com.example.moviesapplication.models.Movie;
 
 import org.parceler.Parcels;
@@ -29,10 +30,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     Context context;
     List<Movie> movies;
+   /* List<Genre> genres;*/
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies, List<Genre> genres) {
         this.context = context;
         this.movies = movies;
+        /*this.genres = genres;*/
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -83,6 +86,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 Movie movie = movies.get(position);
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                /*intent.putExtra(Genre.class.getSimpleName(), Parcels.wrap(genres));*/
                 context.startActivity(intent);
             }
 

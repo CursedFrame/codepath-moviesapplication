@@ -1,12 +1,14 @@
 package com.example.moviesapplication.models;
 
 //Imported JSON and Parceler libraries
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 //@Parcel indicates that the class is Parcelable
@@ -16,8 +18,11 @@ public class Movie {
     String posterPath;
     String title;
     String overview;
+    String releaseDate;
     Double voteAverage;
     Integer id;
+    Integer[] genreIds;
+    public List<String> genres;
 
     public Movie() {
 
@@ -28,8 +33,17 @@ public class Movie {
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
+        releaseDate = jsonObject.getString("release_date");
         voteAverage = jsonObject.getDouble("vote_average");
         id = jsonObject.getInt("id");
+
+        JSONArray genreArray = jsonObject.getJSONArray("genre_ids");
+        genreIds = new Integer[genreArray.length()];
+        for (int i = 0 ; i < genreArray.length() ; i++) {
+            genreIds[i] = genreArray.getInt(i);
+        }
+        // Sort genreIds
+        Arrays.sort(genreIds);
     }
 
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
@@ -64,4 +78,15 @@ public class Movie {
         return id;
     }
 
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Integer[] getGenreIds() {
+        return genreIds;
+    }
+
+    public List<String> getGenres(){
+        return genres;
+    }
 }
